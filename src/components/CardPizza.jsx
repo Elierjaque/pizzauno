@@ -14,7 +14,11 @@ const CardPizza = ({img, name, ingredients, price}) => {
       <Card.Title>Pizza {name}</Card.Title>
       <Card.Subtitle className="mb-2 text-muted text-center">Ingredientes</Card.Subtitle>
       <Card.Text>
-      🍕{formatoIngredientes(ingredients)}
+        <ul>
+          {ingredients.map((ingredients, index) => (
+            <li Key={index}>🍕{ingredients}</li>
+          ))}
+        </ul>
       </Card.Text>
       <Card.Title className="text-center">Precio ${price}</Card.Title>
       <div className="d-flex justify-content-between mt-3">
