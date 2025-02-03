@@ -1,8 +1,17 @@
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { CartContext } from 'react'
+import { CartContext } from '../context/CartContex'
 
 
-const CardPizza = ({img, name, ingredients, price, desc}) => {
+const CardPizza = ({id, img, name, ingredients, price, desc}) => {
+  const { agregarAlCarrito } = useContext(CartContext)
+
+  const handleAddToCart = () => {
+    agregarAlCarrito({ id, img, name, price })
+    alert(`¡Pizza ${name} agregada! 🍕`)
+  }
+  
   return (
     <> 
     <Card style={{ width: '25rem' }}>
@@ -24,7 +33,7 @@ const CardPizza = ({img, name, ingredients, price, desc}) => {
       <Card.Title className="text-center">Precio ${price}</Card.Title>
       <div className="d-flex justify-content-between mt-3">
       <Button variant="outline-dark">ver más 👀</Button>
-      <Button variant="dark"> 🛒 Añadir</Button>
+      <Button variant="dark" onClick={handleAddToCart}> 🛒 Añadir</Button>
       </div>
       
     </Card.Body>
