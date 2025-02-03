@@ -1,10 +1,11 @@
-import {useState} from "react"
-import { pizzaCart } from "../mockData/pizzas"
+
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext"
 import Button from "react-bootstrap/Button"
 import Table from "react-bootstrap/Table"
 
 const Cart = () => {
-    const [cart, setCart] = useState(pizzaCart)
+    const {cart, setCart, calcularTotal} = useContext(CartContext)
     //funcion para aumentar cantidad de pizzas
     const aumentarCantidad = (id) => {
         const newCart = cart.map((pizza) => 
@@ -18,14 +19,10 @@ const Cart = () => {
             pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
           )
           .filter((pizza) => pizza.count > 0); // Elimina las pizzas con count <= 0
-        setCart(newCart);
+        setCart(newCart)
       }
     
-    //funcion calcular total
-    const calcularTotal = () => {
-        return cart.reduce((total, pizza) => total + pizza.price * pizza.count, 0);
-      }
-      return (
+        return (
         <section className="container border border-light-subtle rounded-5 bg-white p-5">
           <h2>Detalle del pedido</h2>
           <Table striped bordered hover size="xl">
