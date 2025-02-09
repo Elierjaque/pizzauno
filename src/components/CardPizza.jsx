@@ -15,6 +15,8 @@ const CardPizza = ({ id, img, name, ingredients, price, desc }) => {
 
   
 
+  
+
   return (
     <>
       <Card style={{ width: "25rem" }}>

@@ -22,17 +22,18 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+
+
+
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2{
+  text-align: center;
+  padding-bottom: 12px;
 }
 
 button {
@@ -66,3 +67,69 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+/* css para perfil de usuario */
+.card-prof{
+  width: 190px;
+  height: 254px;
+  background: #3405a3;
+  border-radius: 15px;
+  box-shadow: 1px 5px 60px 0px #100a886b;
+ }
+ 
+ .card-prof .card-border-top {
+  width: 60%;
+  height: 3%;
+  background: #6b64f3;
+  margin: auto;
+  border-radius: 0px 0px 15px 15px;
+ }
+ 
+ .card-prof span {
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+  font-size: 16px;
+ }
+ 
+ .card-prof .emailprofile {
+  font-weight: 400;
+  color: white;
+  display: block;
+  text-align: center;
+  padding-top: 3px;
+  font-size: 12px;
+ }
+ 
+ .card-prof .img-prf {
+  width: 70px;
+  height: 80px;
+  background: #6b64f3;
+  border-radius: 15px;
+  margin: auto;
+  margin-top: 25px;
+ }
+ 
+ .card-prof button {
+  padding: 8px 25px;
+  display: block;
+  margin: auto;
+  border-radius: 8px;
+  border: none;
+  margin-top: 30px;
+  background: #6b64f3;
+  color: white;
+  font-weight: 600;
+ }
+ 
+ .card-prof button:hover {
+  background: #534bf3;
+ }
+
+ /* Para destacar en el Navbar*/
+ .active {
+    color: darkgreen;
+ }

@@ -3,10 +3,12 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
+import { UserContext } from '../context/UserContext'
+import { useContext } from 'react'
 
 
 const Profile = () => {
+  const { logout } = useContext(UserContext)
   return (
     <Container className="mt-5">
     <Row className="justify-content-center">
@@ -19,7 +21,7 @@ const Profile = () => {
         <Card.Text>
           eliertem@gmail.com
         </Card.Text>
-        <Button variant="primary">cerrar sesión</Button>
+        <Button variant="primary" onClick={logout}>cerrar sesión</Button>
       </Card.Body>
     </Card>
     </Row>

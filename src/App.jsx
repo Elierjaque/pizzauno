@@ -11,26 +11,30 @@ import Pizza from './pages/Pizza'
 import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
 import CartProvider from "./context/CartContext"
+import ProtectedRoute from './components/ProtectedRoute'
+import User from './components/User'
 
 
 function App() {
   return (
     <>
       <CartProvider>
-        <Navbar />
-        <Routes>
+      <Navbar />
+      <Routes>
          <Route path='/' element={<Home />}/>
-          <Route path='/register' element={<Register />}/>
-          <Route path='/login' element={<Login />}/>
+          <Route path='/register' element={<User> <Register /> </User>}/>
+          <Route path='/login' element={<User> <Login /> </User>}/>
           <Route path='/cart' element={<Cart />}/>
-          <Route path='/pizza/p001' element={<Pizza />}/>
-          <Route path='/profile' element={<Profile />}/>
+          <Route path='/pizza/:id' element={<Pizza />}/>
+          <Route path='/profile' element={<ProtectedRoute> <Profile /> </ProtectedRoute>}/>
           <Route path='*' element={<NotFound />}/>
-        </Routes>
-        <Footer />
+
+      </Routes>
+      <Footer />
       </CartProvider>
+
     </>
-  );
+  )
 }
 
 export default App;

@@ -2,36 +2,31 @@ import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import { UserContext } from "../context/UserContext";
+
 
 const Cart = () => {
   // Estado para manejar el carrito
   const {cart, setCart, calcularTotal} = useContext(CartContext)
+  const { token } = useContext(UserContext)
 
-
-  //const [cart, setCart] = useState(pizzaCart);
 
   // Función para aumentar la cantidad
   const increaseCount = (id) => {
-    const updatedCart = cart.map((pizza) =>
+    const newCart = cart.map((pizza) =>
       pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza);
-      setCart(updatedCart);
+      setCart(newCart);
   };
-
-    
     // Función para disminuir la cantidad
     const decreaseCount = (id) => {
-      const updatedCart = cart.map((pizza) =>
-        pizza.id === id && pizza.count > 1
-          ? { ...pizza, count: pizza.count - 1 }
-          : pizza
-      );
-      setCart(updatedCart);
+      const newCart = cart
+        .map((pizza) =>
+          pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
+        )
+        .filter((pizza) => pizza.count > 0); // Elimina las pizzas con count <= 0
+      setCart(newCart)
     };
 
- // Calcular el total
- const calculateTotal = () => {
-    return cart.reduce((total, pizza) => total + pizza.price * pizza.count, 0);
-  };
 
   return (
     <section>
@@ -78,7 +73,11 @@ const Cart = () => {
           ))}
         </tbody>
       </Table>
-      <h3>Total: ${calculateTotal()}</h3>
+      <h3>Total: ${calcularTotal()}</h3>
+      <div className="text-center mb-4">
+          <Button variant="dark" size="lg"disabled={!token}>Pagar</Button>
+          {!token && <p className="text-danger mt-2">🔒 Inicia sesión para pagar!!</p>}
+          </div>
     </section>
   );
 };
