@@ -1,25 +1,110 @@
 import { createContext, useState } from "react"
 
-// Crear el contexto
 export const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
-  const [token, setToken] = useState(true) // Estado inicial del token en true
+  const [token, setToken] = useState(localStorage.getItem("token") || null)
+  const [email, setEmail] = useState(null)  // guarda email 
+  const [user, setUser] = useState(null)  // guarda perfil  
 
+  // Función para perfil
+  const getProfile = async () => {
+    if (!token) return
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error("No se pudo obtener el perfil")
+      }
+
+      const userData = await response.json()
+      setUser(userData) // Guarda los datos del usuario en el estado
+    } catch (error) {
+      console.error("Error al obtener el perfil:", error.message)
+      setUser(null)
+    }
+  }
+
+  // Llama a getProfile cuando cambie ek token
+  useEffect(() => {
+    if (token) {
+      getProfile()
+    }
+  }, [])
+
+
+  // Función login
+  const login = async (email, password) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
+
+      if (!response.ok) {
+        throw new Error("email o contraseña incorrecta")
+      }
+
+      const data = await response.json()
+      setToken(data.token)
+      setEmail(data.email)
+      localStorage.setItem("token", data.token)  // Guarda el token en el localStorage
+      localStorage.setItem("email", data.email)  // Guarda el email en el localStorage
+    } catch (error) {
+      console.error("Error en login:", error.message)
+      alert(error.message)
+    }
+  }
+
+  // Función registro
+  const register = async (email, password) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
   
-  // Método logout para cambiar el token a false
+      if (!response.ok) {
+        throw new Error("No se pudo registrar el usuario")
+      }
+  
+      alert("Registro exitoso. Ahora inicia sesión.")
+  
+    } catch (error) {
+      console.error("Error en registro:", error.message)
+      alert(error.message)
+    }
+  }
+
+  // Función logout
   const logout = () => {
-    setToken(false)
+    setToken(null)
+    setEmail(null)
+    setUser(null)
+    localStorage.removeItem("token")
+    localStorage.removeItem("email")
   }
 
   return (
-    <UserContext.Provider value={{ token, logout }}>
+    <UserContext.Provider value={{ token, email, user, login, register, logout, getProfile }}>
       {children}
     </UserContext.Provider>
   )
 }
 
 export default UserProvider
+
+
+
 
 
 

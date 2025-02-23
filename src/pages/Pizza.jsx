@@ -6,8 +6,6 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useParams } from 'react-router-dom'
 
-
-
 const Pizza = () => {
   const {id} = useParams()
   const [pizza, setPizza] = useState(null)
@@ -40,7 +38,7 @@ const Pizza = () => {
       <Header />
       <Container className="mt-4">
         <Row className="g-4">
-          {pizza1 && ( // Verificamos que pizza1 no sea null antes de intentar renderizar
+          {pizza && ( // Verificamos que pizza1 no sea null antes de intentar renderizar
             <Col md={4} key={pizza.id}>
               <CardPizza
                 id={pizza.id}

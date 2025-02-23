@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+//import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from './components/Navbarra'
 import Footer from './components/Footer'
+import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -21,7 +22,7 @@ function App() {
       <CartProvider>
       <Navbar />
       <Routes>
-         <Route path='/' element={<Home />}/>
+          <Route path='/' element={<Home />}/>
           <Route path='/register' element={<User> <Register /> </User>}/>
           <Route path='/login' element={<User> <Login /> </User>}/>
           <Route path='/cart' element={<Cart />}/>
@@ -38,3 +39,4 @@ function App() {
 }
 
 export default App;
+

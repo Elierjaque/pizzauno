@@ -4,7 +4,7 @@ import { pizzaCart } from "../mockData/pizzas";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(pizzaCart ?? []); // Asegura que el estado inicial sea un array
+  const [cart, setCart] = useState(pizzaCart) // Asegura que el estado inicial sea un array
 
   const calcularTotal = () => {
     return cart.reduce((total, pizza) => total + pizza.price * pizza.count, 0);
